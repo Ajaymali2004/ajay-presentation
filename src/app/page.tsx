@@ -249,7 +249,7 @@ function Slide3({ active }: { active: boolean }) {
           <span style={{ fontSize: "1.3rem" }}>🎙️</span>
           <div>
             <div style={{ fontSize: "0.88rem", fontWeight: 600 }}>Tech Talk &amp; Pecha Kucha</div>
-            <div style={{ fontSize: "0.74rem", color: "var(--text-muted)" }}>Tech Talk: <em>Machine Learning in Banking</em><br />Pecha Kucha: <em>The Art of Simplicity in Design</em></div>
+            <div style={{ fontSize: "0.74rem", color: "var(--text-muted)" }}>Tech Talk: <em>Payment Gateway</em><br />Pecha Kucha: <em>Anime vs Cartoon</em></div>
           </div>
         </Card>
         <Card style={{ display: "flex", gap: "0.8rem", alignItems: "center" }}>
