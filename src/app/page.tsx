@@ -90,8 +90,8 @@ function Slide({ children, active, blobs, particles = false }: {
 }
 
 /* ── small helpers ── */
-const SL = ({ children }: { children: React.ReactNode }) => (
-  <div className="section-label r" style={{ marginBottom: "0.35rem", color: "#3b82f6" }}>{children}</div>
+const SL = ({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) => (
+  <div className="section-label r" style={{ marginBottom: "0.35rem", color: "#3b82f6", ...style }}>{children}</div>
 );
 const H2 = ({ children, cls = "grad-text-2" }: { children: React.ReactNode; cls?: string }) => (
   <h2 className={`font-display r ${cls}`} style={{ fontSize: "clamp(1.6rem,3.2vw,2.4rem)", fontWeight: 700, margin: "0 0 0.15rem" }}>{children}</h2>
@@ -866,4 +866,4 @@ export default function Home() {
       </nav>
     </>
   );
-} 
+}
