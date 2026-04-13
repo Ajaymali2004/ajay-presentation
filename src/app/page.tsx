@@ -508,34 +508,35 @@ function Slide8e({ active }: { active: boolean }) {
   return <ScreenshotSlide active={active} src="screenshot4.png" counter="SkyFox · 5 / 5" />;
 }
 
-/* 9 – Key Features */
 function Slide9({ active }: { active: boolean }) {
   const features = [
-    ["🔐", "#3b82f6", "OTP-Based Signup Authentication", "TOTP secret generated at signup and stored in memory for up to 15 minutes; OTP is verified server-side in Go before account activation."],
-    ["🤖", "#a78bfa", "CAPTCHA Login Protection", "Integrated Captcha on login and signup — token passed with form, verified server-side in Go middleware before JWT issuance."],
-    ["🎟️", "#60a5fa", "Concurrent Seat Booking Engine", "Interactive seat map with real-time selection. Goroutine-based seat locking in Go to prevent concurrent booking conflicts."],
-    ["💳", "#3b82f6", "Multi-Step Checkout", "Seat confirmation → payment details → booking confirmation. Transactional integrity with PostgreSQL rollbacks on failure."],
-    ["👤", "#a78bfa", "Profile Management", "Full CRUD for user profiles — update name, mobile, profile photo or avatar, view complete booking history."],
-    ["🛠️", "#60a5fa", "Admin & Window Booking", "Admin can configure screens with different seat layouts, schedule shows, detect showtime conflicts, and support box office ticket booking."],
+    ["🔑", "#a78bfa", "Basic Auth → JWT"],
+    ["🛡️", "#60a5fa", "Role-Based Access Control"],
+    ["👤", "#3b82f6", "Profile Management"],
+    ["🔍", "#a78bfa", "Fuzzy Search"],
+    ["🛠️", "#60a5fa", "Admin Creation by Owner"],
+    ["🎬", "#3b82f6", "Movie Scheduling by Admin"],
   ];
   return (
     <Slide active={active} blobs={[
       { w: 420, h: 420, bottom: "-110px", right: "-90px", color: "#1d4ed8", opacity: 0.11, anim: "anim-float-slow" },
       { w: 270, h: 270, top: "-70px", left: "-60px", color: "#7c3aed", opacity: 0.08, anim: "anim-float-drift" },
     ]}>
-      <SL>What We Built</SL>
+      <SL>What I Built</SL>
       <H2>Key Features Developed</H2>
       <Rule />
       <div className="g2 r" style={{ marginTop: "0.9rem" }}>
-        {features.map(([icon, color, title, desc]) => (
-          <Card key={title as string} style={{ borderLeft: `3px solid ${color}` }}>
-            <h4 style={{ fontSize: "0.9rem", fontWeight: 600, margin: "0 0 5px", display: "flex", gap: 7, alignItems: "center" }}>
+        {features.map(([icon, color, title]) => (
+          <Card key={title as string} style={{ borderLeft: `3px solid ${color}`, display: "flex", alignItems: "center", justifyContent: "center", minHeight: "72px" }}>
+            <h4 style={{ fontSize: "0.95rem", fontWeight: 600, margin: 0, display: "flex", gap: 8, alignItems: "center", textAlign: "center" }}>
               <span>{icon}</span> {title}
             </h4>
-            <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", lineHeight: 1.55 }}>{desc}</p>
           </Card>
         ))}
       </div>
+      <p style={{ textAlign: "center", fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.5rem", letterSpacing: "0.05em" }}>
+        Customer · Admin · Owner
+      </p>
     </Slide>
   );
 }
@@ -543,9 +544,9 @@ function Slide9({ active }: { active: boolean }) {
 /* 10 – Challenges & Solutions */
 function Slide10({ active }: { active: boolean }) {
   const items = [
-    ["Concurrency in Seat Selection", "Race condition: two users simultaneously selecting the same seat led to double-bookings. Non-deterministic bug only appearing under concurrent load.", "Implemented goroutine-based seat locking in Go. If a user abandons the flow, the lock is released automatically after a timeout."],
-    ["OTP Secret for Signup", "Generating a secure, unique TOTP secret per user during signup — ensuring it's stored securely and correctly tied to time-based OTPs for 2FA flows.", "Used Go's crypto/rand + base32 encoding to generate secret on signup, stored encrypted in DB. QR code sent to client for authenticator app setup."],
-    ["Seat Selection Algorithm", "Users may request seats in a preferred row/block, but if enough continuous seats are not available on one side, the system must intelligently suggest alternatives.", "Algorithm prioritizes continuous seats first. If unavailable together, it suggests the best available continuous block and lets the customer choose remaining seats manually."],
+    ["Role-Based Access Control", "Ensuring Customer, Admin, and Owner roles have strictly scoped permissions without duplicating authorization logic across every handler.", "Built a centralized RBAC middleware in Go that reads the role claim from the JWT and gates routes declaratively before reaching business logic."],
+    ["Fuzzy Search", "Standard string matching failed to handle typos or partial input, leading to poor search results when users searched for movies or shows.", "Used Go's internal fuzzy matching library directly on the in-memory data, scoring and ranking results by similarity so near-matches surface naturally without any SQL involvement."],
+    ["Movie Scheduling by Admin", "Preventing show time conflicts when an admin schedules multiple movies across screens — same screen could be double-booked for overlapping time slots.", "Implemented a conflict detection check in Go before persisting any new schedule, querying existing showtimes for that screen and rejecting overlaps with a descriptive error."],
   ];
   return (
     <Slide active={active} blobs={[
@@ -560,11 +561,11 @@ function Slide10({ active }: { active: boolean }) {
           <Card key={title} className="r">
             <div className="g2" style={{ gap: "1.2rem" }}>
               <div>
-                <div style={{ fontSize: "0.8rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#ef4444", marginBottom: "0.25rem" }}>⚠️ Challenge {i + 1} – {title}</div>
+                <div style={{ fontSize: "0.8rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#ef4444", marginBottom: "0.25rem" }}>{i + 1} – {title}</div>
                 <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>{challenge}</p>
               </div>
               <div>
-                <div style={{ fontSize: "0.8rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#22c55e", marginBottom: "0.25rem" }}>✅ Solution</div>
+                <div style={{ fontSize: "0.8rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#22c55e", marginBottom: "0.25rem" }}>Solution</div>
                 <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>{solution}</p>
               </div>
             </div>
@@ -628,38 +629,53 @@ function Slide12({ active }: { active: boolean }) {
       <Rule />
       <div className="g2 r" style={{ marginTop: "0.9rem", gap: "1.4rem" }}>
         <div>
-          {/* TDD Cycle — correct order: Red → Green → Refactor */}
+          {/* TDD Cycle */}
           <Card style={{ marginBottom: "0.75rem", borderLeft: "3px solid #ef4444" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: 8 }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontWeight: 700, fontSize: "0.9rem" }}>
-                <span style={{ color: "#ef4444" }}>🔴 Red</span>
+                <span style={{ color: "#ef4444" }}>🔴 Write Failing Test</span>
                 <span style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>→</span>
-                <span style={{ color: "#22c55e" }}>🟢 Green</span>
+                <span style={{ color: "#22c55e" }}>🟢 Make It Pass</span>
                 <span style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>→</span>
-                <span style={{ color: "#facc15" }}>🟡 Refactor</span>
+                <span style={{ color: "#facc15" }}>🟡 Refactor Code</span>
               </span>
             </div>
+            <ul style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.8, paddingLeft: "1.1rem", margin: 0 }}>
+              <li><strong style={{ color: "#ef4444" }}>Write Failing Test:</strong> Define expected behavior by writing a test that initially fails.</li>
+              <li><strong style={{ color: "#22c55e" }}>Make It Pass:</strong> Implement the simplest possible solution to satisfy the test.</li>
+              <li><strong style={{ color: "#facc15" }}>Refactor Code:</strong> Improve structure, readability, and performance while ensuring all tests continue to pass.</li>
+            </ul>
+          </Card>
+
+          <Card style={{ borderLeft: "3px solid #a78bfa" }}>
+            <div style={{ fontSize: "0.84rem", fontWeight: 700, color: "#a78bfa", marginBottom: 5 }}>
+              Mocks &amp; Stubs
+            </div>
             <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>
-              <strong style={{ color: "#ef4444" }}>Red:</strong> Write a failing test first.&nbsp;
-              <strong style={{ color: "#22c55e" }}>Green:</strong> Implement minimal code to make it pass.&nbsp;
-              <strong style={{ color: "#facc15" }}>Refactor:</strong> Clean and improve code without breaking tests. Enforced during Pair Programming sessions.
+              Leveraged Go interfaces to mock the database layer in handler tests, eliminating dependency on real database calls.
+              On the frontend, mock API responses are used to validate component behavior independently, ensuring faster and more reliable unit testing.
             </p>
           </Card>
-          <Card style={{ borderLeft: "3px solid #a78bfa" }}>
-            <div style={{ fontSize: "0.84rem", fontWeight: 700, color: "#a78bfa", marginBottom: 5 }}>Mocks &amp; Stubs</div>
-            <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Used Go interfaces to mock the DB layer in handler tests — no actual DB calls during unit tests. Frontend uses mock API responses to test components in isolation from the backend.</p>
-          </Card>
         </div>
+
         <div>
-          <div style={{ fontSize: "0.88rem", fontWeight: 600, marginBottom: "0.65rem" }}>Test Coverage Areas</div>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
             {[
-              ["⚛️", "#3b82f6", "React Components (Vitest)", "Login, Seat Map, Checkout, Profile — all critical UI paths"],
-              ["🐹", "#a78bfa", "Go API Handlers", "Auth endpoints, booking logic, payment — mocked DB layer"],
-              ["⚡", "#60a5fa", "Concurrency & Edge Cases", "Seat race conditions, OTP expiry, invalid token scenarios"],
-              ["🔗", "#818cf8", "Integration Tests", "End-to-end booking flow — signup → seat → checkout → confirm"],
+              ["⚛️", "#3b82f6", "React Components (Vitest)", "Covers critical UI flows such as authentication, seat selection, checkout, and user profile interactions"],
+              ["🐹", "#a78bfa", "Go API Handlers", "Validates authentication, booking workflows, and payment processing with a fully mocked database layer"],
+              ["⚡", "#60a5fa", "Concurrency & Edge Cases", "Handles race conditions in seat booking, OTP expiration logic, and invalid/expired token scenarios"],
+              ["🔗", "#818cf8", "Integration Tests", "End-to-end validation of the complete booking flow: signup → seat selection → checkout → confirmation"],
             ].map(([icon, color, title, sub]) => (
-              <Card key={title as string} style={{ display: "flex", gap: "0.75rem", alignItems: "center", padding: "0.65rem 0.9rem", borderLeft: `3px solid ${color}` }}>
+              <Card
+                key={title as string}
+                style={{
+                  display: "flex",
+                  gap: "0.75rem",
+                  alignItems: "center",
+                  padding: "0.65rem 0.9rem",
+                  borderLeft: `3px solid ${color}`
+                }}
+              >
                 <span style={{ fontSize: "1rem" }}>{icon}</span>
                 <div>
                   <div style={{ fontSize: "0.83rem", fontWeight: 600 }}>{title}</div>
@@ -787,7 +803,7 @@ function Slide15({ active }: { active: boolean }) {
         </p>
         <div className="r" style={{ marginTop: "1.4rem", display: "inline-block", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, padding: "0.9rem 2rem" }}>
           <div style={{ display: "flex", gap: "2.5rem", justifyContent: "center", flexWrap: "wrap" }}>
-            {[["Student", "Ajay Mali (UI22CS43)"], ["Semester", "6th Sem – B.Tech CSE"], ["Faculty Supervisor", "Dr. Nidhi Desai"]].map(([label, val]) => (
+            {[["Student", "Ajay Mali (UI22CS43)"], ["Semester", "8th Sem – B.Tech CSE"], ["Faculty Supervisor", "Dr. Nidhi Desai"]].map(([label, val]) => (
               <div key={label}>
                 <div className="section-label" style={{ marginBottom: 3 }}>{label}</div>
                 <div style={{ fontSize: "0.84rem", fontWeight: 600 }}>{val}</div>
