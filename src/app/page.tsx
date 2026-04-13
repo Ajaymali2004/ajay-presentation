@@ -143,7 +143,7 @@ function Slide1({ active }: { active: boolean }) {
         }}>
           {[
             ["Student", "Ajay Mali (UI22CS43)"],
-            ["Semester", "6th Sem – B.Tech CSE"],
+            ["Semester", "8th Sem – B.Tech CSE"],
             ["Role", "Application Engineer Intern"],
             ["Faculty Supervisor", "Dr. Nidhi Desai"],
           ].map(([label, value], i) => (
