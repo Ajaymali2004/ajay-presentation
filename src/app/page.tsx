@@ -357,7 +357,7 @@ function Slide6({ active }: { active: boolean }) {
     { color: "#60a5fa", title: "Database", badges: ["PostgreSQL", "SQL Migrations"] },
     { color: "#3b82f6", title: "DevOps", badges: ["Docker", "Docker Compose", "GOCD", "Bitbucket"] },
     { color: "#a78bfa", title: "Testing", badges: ["Vitest", "Go Testing", "Mocks/Stubs"], gold: true },
-    { color: "#60a5fa", title: "Auth & Security", badges: ["hCaptcha", "TOTP / OTP", "JWT", "bcrypt"] },
+    { color: "#60a5fa", title: "Auth & Security", badges: ["Captcha", "TOTP / OTP", "JWT", "bcrypt"] },
   ];
   return (
     <Slide active={active} blobs={[
@@ -431,7 +431,7 @@ function Slide7({ active }: { active: boolean }) {
       {/* Bottom row */}
       <div className="g3 r" style={{ marginTop: "0.8rem" }}>
         {[
-          ["🔐", "#3b82f6", "Security", "hCaptcha on login/signup, TOTP-based OTP 2FA, JWT middleware on all protected routes, bcrypt password hashing"],
+          ["🔐", "#3b82f6", "Security", "Captcha on login/signup, TOTP-based OTP 2FA, JWT middleware on all protected routes, bcrypt password hashing"],
           ["⚡", "#a78bfa", "Performance", "Go goroutines for concurrency; PostgreSQL row-level locking to prevent race conditions"],
           ["🧪", "#60a5fa", "Quality", "TDD-first approach, Vitest for frontend, Go testing package for backend — all critical paths covered"],
         ].map(([icon, color, title, desc]) => (
@@ -512,7 +512,7 @@ function Slide8e({ active }: { active: boolean }) {
 function Slide9({ active }: { active: boolean }) {
   const features = [
     ["🔐", "#3b82f6", "OTP-Based Signup Authentication", "TOTP secret generated at signup and stored in memory for up to 15 minutes; OTP is verified server-side in Go before account activation."],
-    ["🤖", "#a78bfa", "CAPTCHA Login Protection", "Integrated hCaptcha on login and signup — token passed with form, verified server-side in Go middleware before JWT issuance."],
+    ["🤖", "#a78bfa", "CAPTCHA Login Protection", "Integrated Captcha on login and signup — token passed with form, verified server-side in Go middleware before JWT issuance."],
     ["🎟️", "#60a5fa", "Concurrent Seat Booking Engine", "Interactive seat map with real-time selection. Goroutine-based seat locking in Go to prevent concurrent booking conflicts."],
     ["💳", "#3b82f6", "Multi-Step Checkout", "Seat confirmation → payment details → booking confirmation. Transactional integrity with PostgreSQL rollbacks on failure."],
     ["👤", "#a78bfa", "Profile Management", "Full CRUD for user profiles — update name, mobile, profile photo or avatar, view complete booking history."],
