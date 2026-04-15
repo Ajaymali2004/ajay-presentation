@@ -236,7 +236,7 @@ function Slide3({ active }: { active: boolean }) {
         {[
           { color: "#3b82f6", title: "Week 1: Orientation", text: "Introduction to IDFC FIRST Bank's tech ecosystem, tools, security norms, and org culture." },
           { color: "#a78bfa", title: "Weeks 2–5: Bootcamp", text: "Deep-dive technical training across Go, React, Docker, CI/CD, Kafka, TDD, Pair Programming, and engineering principles (SOLID, DRY, KISS, YAGNI)." },
-          { color: "#60a5fa", title: "Weeks 6–8: Project Simulation", text: "Agile sprint simulation — 3 sprints of 1 week each: with standups, kick-off, showcase, desk-checks, bug bash, code freeze & introspect ceremonies." },
+          { color: "#60a5fa", title: "Weeks 6–8: Project Simulation", text: "Agile sprint simulation — 3 sprints of 1 week each: with standups, kick-off, showcase, desk-checks, bug bash, code freeze & Retrospect ceremonies." },
         ].map(c => (
           <Card key={c.title} style={{ borderLeft: `3px solid ${c.color}` }}>
             <div style={{ fontSize: "0.88rem", fontWeight: 700, color: c.color, marginBottom: 6 }}>{c.title}</div>
@@ -607,7 +607,7 @@ function Slide11({ active }: { active: boolean }) {
         <div>
           <div style={{ fontSize: "0.88rem", fontWeight: 600, marginBottom: "0.7rem" }}>Agile Ceremonies Practiced</div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-            {["📋 Iteration Planning", "🚦 Daily Standups", "🏁 Kick-Off", "🖊️ Sign-Off", "🔍 Desk Check", "🐛 Bug Bash", "🧊 Code Freeze", "🎯 Dev", "🎤 Showcase", "🪞 Introspect"].map((b, i) => (
+            {["📋 Iteration Planning", "🚦 Daily Standups", "🏁 Kick-Off", "🖊️ Sign-Off", "🔍 Desk Check", "🐛 Bug Bash", "🧊 Code Freeze", "🎯 Dev", "🎤 Showcase", "🪞 Retrospect"].map((b, i) => (
               <Badge key={b} cls={i > 3 ? "gold" : ""}>{b}</Badge>
             ))}
           </div>
